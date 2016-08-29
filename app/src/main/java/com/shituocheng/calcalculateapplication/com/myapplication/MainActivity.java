@@ -38,7 +38,11 @@ public class MainActivity extends AppCompatActivity {
         threadHandler.post(new Runnable() {
             @Override
             public void run() {
-                fetchData();
+                String text = test();
+                Message message = uiHandler.obtainMessage();
+                message.obj = text;
+                message.what = MESSAGE_OBJ;
+                message.sendToTarget();
             }
         });
         // myHandler = new MyHandler(handlerThread.getLooper());
@@ -54,19 +58,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-    }
-
-    private void fetchData(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String text = test();
-                Message message = uiHandler.obtainMessage();
-                message.obj = text;
-                message.what = MESSAGE_OBJ;
-                message.sendToTarget();
-            }
-        }).start();
     }
 
     private String test(){
